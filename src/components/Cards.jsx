@@ -2,8 +2,14 @@ import React, { memo } from "react"
 import GatsbyImage from "gatsby-image"
 import { FixedSizeGrid as Grid, areEqual } from "react-window"
 import AutoSizer from "react-virtualized-auto-sizer"
+import memoize from "memoize-one"
 
 import "./cards.css"
+
+const createItemData = memoize(({ columnCount, cards }) => ({
+  columnCount,
+  cards,
+}))
 
 const Cell = memo(({ columnIndex, rowIndex, style, data }) => {
   const { cards, columnCount } = data
@@ -47,6 +53,7 @@ const Cards = ({ cards }) => (
         const cardHeight = 395
         const columnCount = Math.floor(width / cardWidth)
         const rowCount = Math.ceil(cards.length / columnCount)
+        const itemData = createItemData({ cards, columnCount })
         return (
           <Grid
             className="grid"
@@ -56,7 +63,7 @@ const Cards = ({ cards }) => (
             columnWidth={cardWidth}
             rowCount={rowCount}
             rowHeight={cardHeight}
-            itemData={{ cards, columnCount }}
+            itemData={itemData}
           >
             {Cell}
           </Grid>
