@@ -1,11 +1,11 @@
-import React from "react"
+import React, { memo } from "react"
 import GatsbyImage from "gatsby-image"
-import { FixedSizeGrid as Grid } from "react-window"
+import { FixedSizeGrid as Grid, areEqual } from "react-window"
 import AutoSizer from "react-virtualized-auto-sizer"
 
 import "./cards.css"
 
-const Cell = ({ columnIndex, rowIndex, style, data }) => {
+const Cell = memo(({ columnIndex, rowIndex, style, data }) => {
   const { cards, columnCount } = data
   const singleColumnIndex = columnIndex + rowIndex * columnCount
   const card = cards[singleColumnIndex]
@@ -29,7 +29,7 @@ const Cell = ({ columnIndex, rowIndex, style, data }) => {
       )}
     </div>
   )
-}
+}, areEqual)
 
 const Cards = ({ cards }) => (
   <div
