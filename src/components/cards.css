@@ -1,0 +1,5 @@
+/* to center cards inside grid */
+.grid > div {
+  position: relative;
+  margin: auto;
+}
