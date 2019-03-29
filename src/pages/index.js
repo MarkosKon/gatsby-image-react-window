@@ -9,7 +9,6 @@ import Cards from "../components/Cards"
 const IndexPage = ({ data }) => {
   const cards = data.allCardsJson.edges.map(n => n.node)
   const sortedCards = sortBy(cards, ["cost", "name"])
-  console.log(sortedCards)
   return (
     <Layout>
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
